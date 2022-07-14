@@ -50,7 +50,7 @@ class Book(models.Model):
     def display_genre(self):
         """Создает строку для жанра. Это необходимо для отображения жанра в Admin."""
         return ', '.join([genre.name for genre in self.genre.all()[:3]])
-
+        
     display_genre.short_description = 'Genre'
 
     def get_absolute_url(self):
