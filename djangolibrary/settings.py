@@ -125,3 +125,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Перенаправление на домашнюю страницу после логина 
 LOGIN_REDIRECT_URL = '/'
+
+# Тестовая отправка писем для сброса паролей в консоль
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
