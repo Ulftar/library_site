@@ -1,7 +1,20 @@
 from django.shortcuts import render
 from django.views import generic
 from .models import Book, Author, BookInstance, Genre
+from django.contrib.auth.mixins import LoginRequiredMixin
 
+class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
+    """
+    Общий список книг на основе классов, предоставленных текущему пользователю.
+    """
+    model = BookInstance
+    template_name ='catalog/bookinstance_list_borrowed_user.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+
+        
 def index(request):
     """
     Функция отображения для домашней страницы сайта.
