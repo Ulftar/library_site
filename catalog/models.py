@@ -1,6 +1,7 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 from django.urls import reverse #Используется для создания URL-адресов путем изменения шаблонов URL-адресов.
+from datetime import date
 
 class Genre(models.Model):
     """
@@ -86,7 +87,9 @@ class BookInstance(models.Model):
     @property
     def is_overdue(self):
         """Определяет, является ли книга просроченной, на основе даты выполнения и текущей даты."""
-        return bool(self.due_back and date.today() > self.due_back)
+        if self.due_back and date.today() > self.due_back:
+            return True
+        return False
 
     LOAN_STATUS = (
         ('m', 'Maintenance'),
